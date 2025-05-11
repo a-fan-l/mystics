@@ -1,0 +1,43 @@
+# dependencies
+/node_modules
+/packages/**/node_modules
+/packages/**/dist
+/packages/**/build
+/packages/**/coverage
+/packages/**/.storybook
+
+# testing
+/coverage
+*.lcov
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*storybook.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+
+# Cache
+.cache/
+.temp/

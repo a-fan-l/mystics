@@ -1,0 +1,112 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: #171717;
+
+  --primary: rgba(0, 249, 158, 1);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --third-foreground: rgba(244, 246, 250, 0.8);
+  --desc-foreground: rgba(244, 246, 250, 0.8);
+
+  --popover-primary: rgba(255, 255, 255, 0.9);
+  --popover-foreground: oklch(0.145 0 0);
+
+  --blocks-primary: rgba(17, 19, 32, 1);
+  --blocks-secondary: rgba(41, 43, 54, 1);
+  --blocks-third: rgba(244, 246, 250, 1);
+  --blocks-special: rgba(244, 246, 250, 1);
+  --blocks-neutral: rgba(17, 19, 32, 1);
+  --blocks-content: linear-gradient(0deg, #f4f6fa 0%, --color-selection-color1, 100%), #fff;
+
+  --hover-blocks-primary: rgba(0, 249, 158, 0.15);
+  --hover-blocks-primary-foreground: #00f99e;
+  --hover-blocks-secondary: #17161e;
+
+  --header-primary: #f4f6fa;
+  --footer-primary: rgba(47, 47, 50, 1);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: #ededed;
+
+  --primary: rgba(0, 249, 158, 1);
+  --primary-foreground: #fff;
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: #a3a3a3;
+  --third-foreground: rgba(244, 246, 250, 0.8);
+  --desc-foreground: rgba(244, 246, 250, 0.8);
+
+  --popover-primary: rgba(67, 67, 67, 1);
+  --popover-foreground: oklch(0.985 0 0);
+
+  --blocks-primary: #17161e;
+  --blocks-secondary: #292b36;
+  --blocks-third: rgba(244, 246, 250, 1);
+  --blocks-special: rgba(244, 246, 250, 1);
+  --blocks-neutral: rgba(17, 19, 32, 1);
+  --blocks-content:
+    linear-gradient(0deg, #000101 0%, #000101 100%), var(rgba(24, 24, 27, 1), #18181b);
+
+  --hover-blocks-primary: rgba(0, 249, 158, 0.15);
+  --hover-blocks-primary-foreground: #00f99e;
+  --hover-blocks-secondary: #17161e;
+
+  --header-primary: rgba(255, 255, 255, 0.15);
+  --footer-primary: rgba(47, 47, 50, 1);
+}
+
+@theme {
+  /* --spacing: 1rem; */
+}
+
+@theme inline {
+  --color-background: var(--blocks-primary);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-third: var(--secondary);
+  --color-third-foreground: var(--third-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-primary: var(--popover-primary);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-header-primary: var(--header-primary);
+  --color-content-background: var(--blocks-content);
+  --color-footer-primary: var(--footer-primary);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: RussoOne, Arial, Helvetica, sans-serif;
+}
+
+/*goalbals footer style */
+.footer-root.simple {
+  @apply bg-footer-primary;
+}
+.footer-root.simple .footer-content {
+  @apply container flex items-center gap-1 py-4 md:flex-row md:gap-3 md:py-8;
+}
+.footer-content .community-root {
+  @apply flex items-center;
+}
+.footer-content .community-root a {
+  @apply mr-2 flex items-center justify-center;
+  min-width: 28px;
+}
+.footer-content .version-root {
+  @apply flex items-center;
+}

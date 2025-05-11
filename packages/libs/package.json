@@ -1,0 +1,23 @@
+{
+  "name": "@mystics/libs",
+  "version": "1.0.0",
+  "description": "mystics libs",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "microbundle"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
+    "microbundle": "^0.15.1",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
