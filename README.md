@@ -33,6 +33,30 @@ pnpm install
 pnpm test
 ```
 
+### CLI Usage
+The CLI tool provides two main commands:
+
+1. **Generate TypeScript types from API**:
+```bash
+# Interactive mode
+pnpm exec mystics-api-type
+
+# Command line mode
+pnpm exec mystics-api-type -u <API_URL> -n <TYPE_NAME> -p <SAVE_PATH>
+
+# Example
+pnpm exec mystics-api-type -u http://localhost:4111/api/agents -n AgentsData -p ./types
+```
+
+2. **Transform CSS to matrix3d**:
+```bash
+# Interactive mode
+pnpm exec mystics-transform-css
+
+# Command line mode
+pnpm exec mystics-transform-css <CSS_FILE> -o <OUTPUT_FILE>
+```
+
 ### Project Management
 This project uses:
 - pnpm workspaces for package management
@@ -67,6 +91,30 @@ pnpm install
 
 # 运行测试
 pnpm test
+```
+
+### CLI 使用说明
+CLI 工具提供了两个主要命令：
+
+1. **从 API 生成 TypeScript 类型**:
+```bash
+# 交互式模式
+pnpm exec mystics-api-type
+
+# 命令行模式
+pnpm exec mystics-api-type -u <API地址> -n <类型名称> -p <保存路径>
+
+# 示例
+pnpm exec mystics-api-type -u http://localhost:4111/api/agents -n UserData -p ./types
+```
+
+2. **CSS transform 转换**:
+```bash
+# 交互式模式
+pnpm exec mystics-transform-css
+
+# 命令行模式
+pnpm exec mystics-transform-css <CSS文件> -o <输出文件>
 ```
 
 ### 项目管理
