@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 
-import { communities, CommunityItem } from '@constants/index';
+import { communities, CommunityItem } from '@constants/community';
 
 export interface CommunityProps {
   isExclude?: boolean;

@@ -28,7 +28,6 @@
         "@icons/*": ["./src/icons/*"],
         "@types/*": ["./src/types/*"],
         "@styles/*": ["./src/styles/*"],
-        "@stories/*": ["./src/stories/*"]
       },
       "typeRoots": ["./node_modules/@types", "./src/types"]
     },
