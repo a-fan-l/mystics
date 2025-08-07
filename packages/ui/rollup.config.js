@@ -7,7 +7,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import svgr from '@svgr/rollup';
 import alias from '@rollup/plugin-alias';
 
-const packageJson = require('./src/package.json');
+const packageJson = require('./package.json');
 
 export default [
   {
@@ -29,6 +29,7 @@ export default [
       alias({
         entries: [
           { find: '@constants', replacement: './src/constants' },
+          { find: '@icons', replacement: './src/icons' },
         ],
         customResolver: resolve({
           extensions: ['.js', '.jsx', '.ts', '.tsx', '.svg'],

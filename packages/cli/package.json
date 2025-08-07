@@ -2,10 +2,20 @@
   "name": "@mystics/cli",
   "version": "1.0.0",
   "description": "CLI tools for type generation and CSS transform conversion",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "mystics-api-type": "./bin/api-type.js",
     "mystics-transform-css": "./bin/transform3d-css.js"
+  },
+  "scripts": {
+    "build": "pnpm run build:lib && pnpm run build:bin",
+    "build:lib": "esbuild src/index.ts --bundle --platform=node --target=node18 --outfile=dist/index.js --external:inquirer --external:chalk --external:ora --external:commander --external:shelljs --external:quicktype-core --external:css --external:postcss",
+    "build:bin": "pnpm run build:api-type && pnpm run build:transform-css",
+    "build:api-type": "esbuild src/cli/api-type.ts --bundle --platform=node --target=node18 --outfile=bin/api-type.js --external:inquirer --external:chalk --external:ora --external:commander --external:shelljs --external:quicktype-core --banner:js='#!/usr/bin/env node'",
+    "build:transform-css": "esbuild src/cli/transform3d-css.ts --bundle --platform=node --target=node18 --outfile=bin/transform3d-css.js --external:css --external:postcss --banner:js='#!/usr/bin/env node'",
+    "clean": "rm -r f dist bin/*.js",
+    "dev": "pnpm run build:lib -- --watch"
   },
   "keywords": [
     "cli",
@@ -30,5 +40,14 @@
     "prompts": "^2.4.2",
     "quicktype-core": "^23.1.3",
     "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "@types/css": "^0.0.38",
+    "@types/figlet": "^1.5.0",
+    "@types/inquirer": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "@types/shelljs": "^0.8.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.0.0"
   }
 }

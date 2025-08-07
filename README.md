@@ -121,3 +121,84 @@ pnpm exec mystics-transform-css <CSS文件> -o <输出文件>
 本项目使用：
 - pnpm workspaces 进行包管理
 - Lerna 进行 monorepo 管理
+
+### 完整的开发和发布流程
+
+#### 1. 安装依赖
+```bash
+pnpm install
+```
+
+#### 2. 构建所有包
+```bash
+pnpm run build
+```
+
+#### 3. 启动 Storybook 开发环境
+```bash
+pnpm run dev:ui
+# 或者
+pnpm run storybook
+```
+
+#### 4. 部署 Verdaccio 私有注册表
+```bash
+# 启动私有注册表
+pnpm run verdaccio:start
+
+# 停止私有注册表
+pnpm run verdaccio:stop
+```
+
+#### 5. 发布包到私有注册表
+```bash
+# 预演发布（不实际发布）
+pnpm run publish:dry
+
+# 正式发布
+pnpm run publish
+```
+
+#### 6. 使用私有注册表
+```bash
+# 设置注册表
+npm config set registry http://localhost:4873
+
+# 注册用户
+npm adduser --registry http://localhost:4873
+
+# 安装私有包
+npm install @mystics/ui @mystics/hooks @mystics/libs @mystics/cli
+```
+
+#### 7. 使用 CLI 工具
+```bash
+# 全局安装 CLI 工具
+npm install -g @mystics/cli
+
+# 生成 API 类型定义
+mystics-api-type -u https://api.example.com/users -n UserData -p ./types/user.ts
+
+# 转换 CSS Transform 为 3D 矩阵
+mystics-transform-css styles.css -o styles-optimized.css
+```
+
+### 包说明
+
+- **@mystics/ui**: React UI 组件库，使用 Rollup 构建，包含 Storybook 文档
+- **@mystics/hooks**: 自定义 React Hooks，使用 Microbundle 构建  
+- **@mystics/libs**: 共享工具库，使用 Microbundle 构建
+- **@mystics/cli**: 命令行工具集，包含 API 类型生成和 CSS Transform 转换功能
+
+### 目录结构
+```
+mystics/
+├── packages/           # 所有包
+│   ├── ui/            # UI 组件库
+│   ├── hooks/         # React Hooks
+│   ├── libs/          # 工具库
+│   └── cli/           # CLI 工具
+├── scripts/           # 构建和部署脚本
+├── verdaccio-config.yaml  # Verdaccio 配置
+├── docker-compose.yml     # Docker 编排文件
+└── .npmrc            # npm 配置

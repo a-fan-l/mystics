@@ -1,264 +1,306 @@
 #!/usr/bin/env node
-const { program } = require('commander');
-const path = require('path');
-const fs = require('fs');
-const figlet = require('figlet');
-const versionStr = figlet.textSync('MYSTICS');
-const Printer = require('@darkobits/lolcatjs');
-const version = require('../package.json').version;
-
-const ora = require('ora');
-const inquirer = require('inquirer');
-const chalk = require('chalk');
-const shell = require('shelljs');
-const transformed = Printer.fromString(
-  ` \n   ✨ MYSTICS CLI${version} ✨ \n ${versionStr}`
-);
-
-const {
-  quicktype,
-  InputData,
-  jsonInputForTargetLanguage,
-} = require('quicktype-core');
-
-// 默认路径
-const desktopPath = path.join(require('os').homedir(), 'Desktop');
-const currentPath = process.cwd();
-const hasVSCode = shell.which('code');
-
-/**
- * 生成类型定义
- * @param {string} url - API 的 URL 地址
- * @param {string} typeName - 生成的类型名称
- * @returns {Promise<{ lines: string[] }>} - 返回生成的类型定义行数组
- */
-async function generateTypes(url, typeName) {
-  const spinner = ora('fetching data...').start();
-  try {
-    // 1. 从 API 获取 JSON 数据
-    const response = await fetch(url);
-    // 使用 fetch 请求 API 数据
-
-    if (!response.ok) {
-      throw new Error(`API请求失败: ${response.statusText}`);
-      // 如果请求失败（状态码非 2xx），抛出错误
-    }
-
-    const jsonData = await response.json();
-    // 将响应数据解析为 JSON 格式
-
-    spinner.text = 'parsing data...';
-    // 更新加载动画的提示信息
-
-    // 2. 处理 JSON 数据
-    const sampleData = Array.isArray(jsonData) ? jsonData[0] : jsonData;
-    // 如果 API 返回的是数组，取第一个元素作为样本数据；否则直接使用返回的数据
-
-    spinner.text = 'generating types...';
-    // 更新加载动画的提示信息
-
-    // 3. 使用 quicktype 生成 TypeScript 类型
-    const jsonInput = await jsonInputForTargetLanguage('typescript');
-    // 创建一个 TypeScript 语言的 JSON 输入对象
-
-    await jsonInput.addSource({
-      name: typeName, // 指定生成的类型名称
-      samples: [JSON.stringify(sampleData)], // 将样本数据转换为 JSON 字符串作为输入
-    });
-
-    const inputData = new InputData();
-    // 创建一个 quicktype 输入数据对象
-
-    inputData.addInput(jsonInput);
-    // 将 JSON 输入添加到输入数据对象中
-
-    spinner.text = 'optimizing types...';
-    // 更新加载动画的提示信息
-
-    const { lines } = await quicktype({
-      lang: 'typescript', // 指定目标语言为 TypeScript
-      inputData, // 输入数据
-      alphabetizeProperties: true, // 按字母顺序排列属性
-      rendererOptions: {
-        'just-types': 'true', // 只生成类型定义，不生成其他代码
-        'explicit-unions': 'true', // 显式生成联合类型
-      },
-    });
-    // 调用 quicktype 生成类型定义，返回的 lines 是类型定义的行数组
-
-    spinner.succeed(chalk.green('✨ types generated successfully!'));
-    // 加载动画成功结束，显示成功信息
-
-    if (!lines || lines.length === 0) {
-      throw new Error('⚠️ types are empty, please check the API return data');
-      // 如果生成的类型为空，抛出错误
-    }
-
-    return { lines };
-    // 返回生成的类型定义行数组
-  } catch (error) {
-    spinner.fail(chalk.red('❌ failed'));
-    // 加载动画失败结束，显示失败信息
-
-    throw error;
-    // 抛出错误以便上层捕获
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-}
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
-/**
- * 提示用户输入配置信息
- * @returns {Promise<object>} - 返回用户的输入配置
- */
-async function promptUser() {
-  console.log(chalk.cyan('\n👋 Welcome to Mystics CLI~\n'));
+// src/cli/api-type.ts
+var import_commander = require("commander");
+var import_inquirer = __toESM(require("inquirer"));
+var import_chalk2 = __toESM(require("chalk"));
 
-  const questions = [
-    {
-      type: 'input', // 输入类型为文本输入
-      name: 'url', // 配置项名称
-      message: '🌐 Please enter the API URL address:', // 提示信息
-      validate: (input) => {
-        // 验证输入的 URL 是否有效
-        try {
-          new URL(input); // 尝试解析 URL
-          return true; // 有效则返回 true
-        } catch {
-          return '❌ URL format is incorrect, please enter a valid URL'; // 无效则返回错误提示
-        }
-      },
-    },
-    {
-      type: 'input', // 输入类型为文本输入
-      name: 'name', // 配置项名称
-      message: '📝 Please enter the type name:', // 提示信息
-      default: 'ApiTypes', // 默认值
-      validate: (input) => {
-        // 验证类型名称是否符合规则（以字母开头，只能包含字母和数字）
-        if (/^[A-Za-z][A-Za-z0-9]*$/.test(input)) {
-          return true; // 有效则返回 true
-        }
-        return '❌ type name must start with a letter and can only contain letters and numbers'; // 无效则返回错误提示
-      },
-    },
-    {
-      type: 'list', // 输入类型为选择列表
-      name: 'path', // 配置项名称
-      message: '📂 Please select the save location:', // 提示信息
-      choices: [
-        { name: '💻 Desktop', value: desktopPath }, // 选项：桌面路径
-        { name: '📁 Current directory', value: currentPath }, // 选项：当前目录
-        { name: '🔍 Custom path', value: 'custom' }, // 选项：自定义路径
-      ],
-    },
-  ];
-
-  const answers = await inquirer.prompt(questions);
-  // 使用 inquirer 提示用户输入配置，并等待用户回答
-
-  if (answers.path === 'custom') {
-    // 如果用户选择了自定义路径
-    const { customPath } = await inquirer.prompt([
-      {
-        type: 'input', // 输入类型为文本输入
-        name: 'customPath', // 配置项名称
-        message: '📁 请输入保存路径:', // 提示信息
-        default: currentPath, // 默认值为当前目录
-        validate: (input) => {
-          // 验证路径是否有效（是否存在）
-          if (shell.test('-d', input)) {
-            return true; // 有效则返回 true
-          }
-          return '❌ path does not exist, please enter a valid path'; // 无效则返回错误提示
-        },
-      },
-    ]);
-    answers.path = customPath; // 将自定义路径存储到配置中
+// src/utils/api-generator.ts
+var import_quicktype_core = require("quicktype-core");
+var import_chalk = __toESM(require("chalk"));
+var import_ora = __toESM(require("ora"));
+var import_fs = __toESM(require("fs"));
+var import_path = __toESM(require("path"));
+var ApiTypeGenerator = class {
+  constructor() {
+    this.spinner = (0, import_ora.default)();
   }
-
-  return answers;
-  // 返回用户的输入配置
-}
-
-// 配置 commander 命令行工具
-program
-  .version(transformed) // 设置版本号并显示彩色欢迎信息
-  .description('🚀 从API URL生成TypeScript类型定义') // 设置工具描述
-  .option('-u, --url <url>', 'API URL地址') // 命令行选项：API URL
-  .option('-n, --name <name>', '生成的类型名称') // 命令行选项：类型名称
-  .option('-p, --path <path>', '保存路径') // 命令行选项：保存路径
-  .action(async (options) => {
-    // 定义命令执行时的动作
+  /**
+   * 从 URL 获取 API 数据
+   */
+  async fetchApiData(url) {
+    this.spinner.start(import_chalk.default.blue("\u6B63\u5728\u83B7\u53D6 API \u6570\u636E..."));
     try {
-      const config = options.url ? options : await promptUser();
-      // 如果命令行提供了 URL，则直接使用命令行参数；否则提示用户输入配置
-
-      const { lines } = await generateTypes(config.url, config.name);
-      // 调用 generateTypes 函数生成类型定义
-
-      const spinner = ora('💾 正在保存文件...').start();
-      // 创建加载动画，提示用户正在保存文件
-
-      // 使用 shelljs 创建目录（如果目录不存在）
-      if (!shell.test('-d', config.path)) {
-        shell.mkdir('-p', config.path);
-        // shell.test('-d', path) 检查路径是否存在，shell.mkdir 创建目录
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-
-      const fullPath = path.join(config.path, `${config.name}.ts`);
-      // 构造完整的文件保存路径（路径 + 类型名称 + .ts 后缀）
-
-      // 使用 shelljs 写入文件
-      shell.ShellString(lines.join('\n')).to(fullPath);
-      // 将生成的类型定义行数组合并为字符串，并写入文件
-
-      spinner.succeed(chalk.green('🎉 文件保存成功！'));
-      // 加载动画成功结束，显示成功信息
-
-      console.log(chalk.cyan('\n📍 文件保存在:'), fullPath);
-      // 打印文件保存路径
-
-      console.log(chalk.yellow('\n👀 类型定义预览:\n'));
-      console.log(chalk.gray('✨ ----------------------------------------'));
-      console.log(lines.join('\n'));
-      console.log(chalk.gray('✨ ----------------------------------------\n'));
-      // 打印类型定义的预览内容
-
-      // 如果安装了 VSCode，提供打开选项
-      if (hasVSCode) {
-        const { openFile } = await inquirer.prompt([
-          {
-            type: 'confirm', // 输入类型为确认（是/否）
-            name: 'openFile', // 配置项名称
-            message: '🔍 是否要在VSCode中打开生成的文件？', // 提示信息
-            default: false, // 默认值为否
-          },
-        ]);
-
-        if (openFile) {
-          // 如果用户选择打开文件
-          const result = shell.exec(`code "${fullPath}"`, { silent: true });
-          // 使用 shelljs 执行 'code' 命令打开 VSCode，silent: true 表示不打印命令输出
-
-          if (result.code === 0) {
-            console.log(chalk.green('\n📝 已在VSCode中打开文件'));
-            // 如果命令执行成功，打印成功信息
-          } else {
-            console.log(chalk.yellow('\n⚠️  无法自动打开文件，请手动打开查看'));
-            // 如果命令执行失败，打印警告信息
-          }
-        }
-      }
-
-      console.log(chalk.green('\n👋 感谢使用，祝您开发愉快！\n'));
-      // 打印结束信息
+      const data = await response.json();
+      this.spinner.succeed(import_chalk.default.green("API \u6570\u636E\u83B7\u53D6\u6210\u529F"));
+      return {
+        success: true,
+        data,
+        message: "\u6570\u636E\u83B7\u53D6\u6210\u529F"
+      };
     } catch (error) {
-      console.error(chalk.red('\n❌ 错误:'), error.message);
-      // 捕获并打印错误信息
-
-      process.exit(1);
-      // 退出程序并返回错误状态码 1
+      this.spinner.fail(import_chalk.default.red("API \u6570\u636E\u83B7\u53D6\u5931\u8D25"));
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "\u672A\u77E5\u9519\u8BEF"
+      };
     }
-});
+  }
+  /**
+   * 生成 TypeScript 类型定义
+   */
+  async generateTypes(data, typeName) {
+    this.spinner.start(import_chalk.default.blue("\u6B63\u5728\u751F\u6210\u7C7B\u578B\u5B9A\u4E49..."));
+    try {
+      const jsonInput = (0, import_quicktype_core.jsonInputForTargetLanguage)("typescript");
+      await jsonInput.addSource({
+        name: typeName,
+        samples: [JSON.stringify(data)]
+      });
+      const inputData = new import_quicktype_core.InputData();
+      inputData.addInput(jsonInput);
+      const result = await (0, import_quicktype_core.quicktype)({
+        inputData,
+        lang: "typescript",
+        rendererOptions: {
+          "just-types": "true",
+          "prefer-types": "true",
+          "explicit-unions": "true"
+        }
+      });
+      this.spinner.succeed(import_chalk.default.green("\u7C7B\u578B\u5B9A\u4E49\u751F\u6210\u6210\u529F"));
+      return {
+        success: true,
+        data: result.lines.join("\n"),
+        message: "\u7C7B\u578B\u5B9A\u4E49\u751F\u6210\u6210\u529F"
+      };
+    } catch (error) {
+      this.spinner.fail(import_chalk.default.red("\u7C7B\u578B\u5B9A\u4E49\u751F\u6210\u5931\u8D25"));
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "\u7C7B\u578B\u751F\u6210\u5931\u8D25"
+      };
+    }
+  }
+  /**
+   * 保存类型定义到文件
+   */
+  async saveToFile(content, outputPath, overwrite = false) {
+    try {
+      const dir = import_path.default.dirname(outputPath);
+      if (!import_fs.default.existsSync(dir)) {
+        import_fs.default.mkdirSync(dir, { recursive: true });
+      }
+      if (import_fs.default.existsSync(outputPath) && !overwrite) {
+        return {
+          success: false,
+          error: `\u6587\u4EF6 ${outputPath} \u5DF2\u5B58\u5728\uFF0C\u4F7F\u7528 --overwrite \u9009\u9879\u8986\u76D6`
+        };
+      }
+      const header = `/**
+ * \u81EA\u52A8\u751F\u6210\u7684\u7C7B\u578B\u5B9A\u4E49\u6587\u4EF6
+ * \u751F\u6210\u65F6\u95F4: ${(/* @__PURE__ */ new Date()).toLocaleString()}
+ * \u8BF7\u52FF\u624B\u52A8\u4FEE\u6539\u6B64\u6587\u4EF6
+ */
 
-program.parse(process.argv);
-// 解析命令行参数并执行相应动作
+`;
+      import_fs.default.writeFileSync(outputPath, header + content, "utf8");
+      return {
+        success: true,
+        data: outputPath,
+        message: `\u7C7B\u578B\u5B9A\u4E49\u5DF2\u4FDD\u5B58\u5230 ${outputPath}`
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "\u6587\u4EF6\u4FDD\u5B58\u5931\u8D25"
+      };
+    }
+  }
+  /**
+   * 完整的类型生成流程
+   */
+  async generate(options) {
+    console.log(import_chalk.default.cyan.bold("\n\u{1F680} Mystics API Type Generator\n"));
+    console.log(import_chalk.default.blue("\u914D\u7F6E\u4FE1\u606F:"));
+    console.log(import_chalk.default.gray(`  API URL: ${options.url}`));
+    console.log(import_chalk.default.gray(`  \u7C7B\u578B\u540D\u79F0: ${options.typeName}`));
+    console.log(import_chalk.default.gray(`  \u8F93\u51FA\u8DEF\u5F84: ${options.outputPath}`));
+    console.log("");
+    const fetchResult = await this.fetchApiData(options.url);
+    if (!fetchResult.success) {
+      return fetchResult;
+    }
+    const typeResult = await this.generateTypes(fetchResult.data, options.typeName);
+    if (!typeResult.success) {
+      return typeResult;
+    }
+    const saveResult = await this.saveToFile(
+      typeResult.data,
+      options.outputPath,
+      options.overwrite
+    );
+    if (saveResult.success) {
+      console.log(import_chalk.default.green.bold("\n\u2705 \u7C7B\u578B\u751F\u6210\u5B8C\u6210!"));
+      console.log(import_chalk.default.green(`\u{1F4C1} \u6587\u4EF6\u4FDD\u5B58\u4F4D\u7F6E: ${saveResult.data}`));
+      console.log(import_chalk.default.blue("\n\u{1F4A1} \u4F7F\u7528\u65B9\u5F0F:"));
+      console.log(import_chalk.default.gray(`  import { ${options.typeName} } from './${import_path.default.basename(options.outputPath, ".ts")}';`));
+    }
+    return saveResult;
+  }
+  /**
+   * 验证 URL 格式
+   */
+  static validateUrl(url) {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  /**
+   * 生成默认输出路径
+   */
+  static generateOutputPath(typeName, outputDir = "./types") {
+    const fileName = typeName.charAt(0).toLowerCase() + typeName.slice(1) + ".ts";
+    return import_path.default.join(outputDir, fileName);
+  }
+};
+
+// src/cli/api-type.ts
+var program = new import_commander.Command();
+var generator = new ApiTypeGenerator();
+function showWelcome() {
+  console.log(import_chalk2.default.cyan.bold("\n\u{1F680} Mystics API Type Generator\n"));
+  console.log(import_chalk2.default.gray("  \u4ECE API \u63A5\u53E3\u751F\u6210 TypeScript \u7C7B\u578B\u5B9A\u4E49\n"));
+}
+async function getConfigInteractive() {
+  const answers = await import_inquirer.default.prompt([
+    {
+      type: "input",
+      name: "url",
+      message: "\u8BF7\u8F93\u5165 API URL:",
+      validate: (input) => {
+        if (!input.trim()) {
+          return "\u8BF7\u8F93\u5165\u6709\u6548\u7684 URL";
+        }
+        if (!ApiTypeGenerator.validateUrl(input)) {
+          return "\u8BF7\u8F93\u5165\u6709\u6548\u7684 URL \u683C\u5F0F";
+        }
+        return true;
+      }
+    },
+    {
+      type: "input",
+      name: "typeName",
+      message: "\u8BF7\u8F93\u5165\u7C7B\u578B\u540D\u79F0:",
+      default: "ApiResponse",
+      validate: (input) => {
+        if (!input.trim()) {
+          return "\u8BF7\u8F93\u5165\u7C7B\u578B\u540D\u79F0";
+        }
+        if (!/^[A-Z][a-zA-Z0-9]*$/.test(input)) {
+          return "\u7C7B\u578B\u540D\u79F0\u5FC5\u987B\u4EE5\u5927\u5199\u5B57\u6BCD\u5F00\u5934\uFF0C\u53EA\u80FD\u5305\u542B\u5B57\u6BCD\u548C\u6570\u5B57";
+        }
+        return true;
+      }
+    },
+    {
+      type: "input",
+      name: "outputPath",
+      message: "\u8BF7\u8F93\u5165\u8F93\u51FA\u6587\u4EF6\u8DEF\u5F84:",
+      default: (answers2) => ApiTypeGenerator.generateOutputPath(answers2.typeName),
+      validate: (input) => {
+        if (!input.trim()) {
+          return "\u8BF7\u8F93\u5165\u8F93\u51FA\u8DEF\u5F84";
+        }
+        return true;
+      }
+    },
+    {
+      type: "confirm",
+      name: "overwrite",
+      message: "\u5982\u679C\u6587\u4EF6\u5DF2\u5B58\u5728\uFF0C\u662F\u5426\u8986\u76D6?",
+      default: false
+    }
+  ]);
+  return {
+    url: answers.url.trim(),
+    typeName: answers.typeName.trim(),
+    outputPath: answers.outputPath.trim(),
+    overwrite: answers.overwrite
+  };
+}
+program.name("mystics-api-type").description("\u4ECE API \u63A5\u53E3\u751F\u6210 TypeScript \u7C7B\u578B\u5B9A\u4E49").version("1.0.0").option("-u, --url <url>", "API URL \u5730\u5740").option("-n, --name <name>", "\u751F\u6210\u7684\u7C7B\u578B\u540D\u79F0").option("-p, --path <path>", "\u8F93\u51FA\u6587\u4EF6\u8DEF\u5F84").option("-o, --overwrite", "\u8986\u76D6\u5DF2\u5B58\u5728\u7684\u6587\u4EF6").option("-i, --interactive", "\u4EA4\u4E92\u5F0F\u6A21\u5F0F").option("-v, --verbose", "\u8BE6\u7EC6\u8F93\u51FA").helpOption("-h, --help", "\u663E\u793A\u5E2E\u52A9\u4FE1\u606F");
+program.parse();
+async function main() {
+  const options = program.opts();
+  if (!options.quiet) {
+    showWelcome();
+  }
+  let config;
+  try {
+    if (options.interactive || !options.url || !options.name) {
+      config = await getConfigInteractive();
+    } else {
+      config = {
+        url: options.url,
+        typeName: options.name,
+        outputPath: options.path || ApiTypeGenerator.generateOutputPath(options.name),
+        overwrite: options.overwrite || false
+      };
+      if (!ApiTypeGenerator.validateUrl(config.url)) {
+        console.error(import_chalk2.default.red("\u274C \u65E0\u6548\u7684 URL \u683C\u5F0F"));
+        process.exit(1);
+      }
+      if (!/^[A-Z][a-zA-Z0-9]*$/.test(config.typeName)) {
+        console.error(import_chalk2.default.red("\u274C \u7C7B\u578B\u540D\u79F0\u5FC5\u987B\u4EE5\u5927\u5199\u5B57\u6BCD\u5F00\u5934\uFF0C\u53EA\u80FD\u5305\u542B\u5B57\u6BCD\u548C\u6570\u5B57"));
+        process.exit(1);
+      }
+    }
+    const result = await generator.generate(config);
+    if (result.success) {
+      console.log(import_chalk2.default.green("\n\u{1F389} \u4EFB\u52A1\u5B8C\u6210!"));
+      process.exit(0);
+    } else {
+      console.error(import_chalk2.default.red(`
+\u274C ${result.error}`));
+      process.exit(1);
+    }
+  } catch (error) {
+    console.error(import_chalk2.default.red("\u274C \u53D1\u751F\u672A\u9884\u671F\u7684\u9519\u8BEF:"));
+    console.error(import_chalk2.default.red(error instanceof Error ? error.message : "\u672A\u77E5\u9519\u8BEF"));
+    if (options.verbose) {
+      console.error(import_chalk2.default.gray("\n\u8C03\u8BD5\u4FE1\u606F:"));
+      console.error(error);
+    }
+    process.exit(1);
+  }
+}
+process.on("uncaughtException", (error) => {
+  console.error(import_chalk2.default.red("\u274C \u672A\u6355\u83B7\u7684\u5F02\u5E38:"), error.message);
+  process.exit(1);
+});
+process.on("unhandledRejection", (reason) => {
+  console.error(import_chalk2.default.red("\u274C \u672A\u5904\u7406\u7684 Promise \u62D2\u7EDD:"), reason);
+  process.exit(1);
+});
+main();

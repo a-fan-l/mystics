@@ -1,16 +1,16 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
-type TimeUnit = 'minute' | 'hour' | 'day';
+export type TimeUnit = 'minute' | 'hour' | 'day';
 
-interface StorageData<T> {
+export interface StorageData<T> {
   value: T;
   timestamp: number;
   expire: number;
   unit: TimeUnit;
 }
 
-interface SetStorageParams<T> {
+export interface SetStorageParams<T> {
   key: string;
   value: T;
   expire?: number;
@@ -18,7 +18,7 @@ interface SetStorageParams<T> {
   isLocal?: boolean;
 }
 
-interface GetStorageParams {
+export interface GetStorageParams {
   key: string;
   isLocal?: boolean;
   isExpired?: boolean;
@@ -30,7 +30,7 @@ interface GetStorageParams {
  * @param unit 时间单位
  * @returns 毫秒数
  */
-const convertToMilliseconds = (duration: number, unit: TimeUnit): number => {
+export const convertToMilliseconds = (duration: number, unit: TimeUnit): number => {
   const conversions: Record<TimeUnit, number> = {
     minute: 60 * 1000,
     hour: 60 * 60 * 1000,
@@ -44,7 +44,7 @@ const convertToMilliseconds = (duration: number, unit: TimeUnit): number => {
  * @param isLocal 是否使用 localStorage
  * @returns Storage 实例
  */
-const getStorageInstance = (isLocal: boolean): Storage => {
+export const getStorageInstance = (isLocal: boolean): Storage => {
   return isLocal ? window.localStorage : window.sessionStorage;
 };
 
@@ -164,4 +164,5 @@ const storage = {
   setItem,
 };
 
+export { storage };
 export default storage;

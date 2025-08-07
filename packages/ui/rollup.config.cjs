@@ -25,27 +25,8 @@ const copyFiles = () => ({
       fs.copyFileSync(path.resolve(stylesDir, file), path.resolve(stylesDistDir, file));
     });
 
-    // 复制icons目录
-    const iconsDir = path.resolve(__dirname, 'src/icons');
-    const iconsDistDir = path.resolve(__dirname, 'dist/icons');
-    if (!fs.existsSync(iconsDistDir)) {
-      fs.mkdirSync(iconsDistDir, { recursive: true });
-    }
-    const copyDirRecursive = (src, dest) => {
-      if (!fs.existsSync(dest)) {
-        fs.mkdirSync(dest, { recursive: true });
-      }
-      fs.readdirSync(src).forEach(file => {
-        const srcPath = path.resolve(src, file);
-        const destPath = path.resolve(dest, file);
-        if (fs.statSync(srcPath).isDirectory()) {
-          copyDirRecursive(srcPath, destPath);
-        } else {
-          fs.copyFileSync(srcPath, destPath);
-        }
-      });
-    };
-    copyDirRecursive(iconsDir, iconsDistDir);
+    // 复制icons目录（如果存在的话，当前已删除）
+    // TODO: 如果需要重新添加icons功能，取消注释并修复以下代码
   },
 });
 
@@ -180,33 +161,33 @@ module.exports = [
   },
 
   // Constants types bundle
-  {
-    input: 'src/constants/index.ts',
-    output: {
-      dir: 'dist/types/constants',
-      format: 'esm',
-      preserveModules: true,
-      preserveModulesRoot: 'src/constants',
-    },
-    plugins: [dts()],
-    // 在 external 配置中移除 Redux 相关依赖
-    external: [
-      'react',
-      'react-dom',
-      '@mui/material',
-      '@mui/icons-material',
-      '@emotion/react',
-      '@emotion/styled',
-      'zustand',
-      'immer',
-      'dayjs',
-      'i18next',
-      'react-i18next',
-      'js-cookie',
-      'lucide-react',
-      /^@components\//,
-      /^@constants\//,
-      /^@icons\//,
-    ],
-  },
+  // {
+  //   input: 'src/constants/index.ts',
+  //   output: {
+  //     dir: 'dist/types/constants',
+  //     format: 'esm',
+  //     preserveModules: true,
+  //     preserveModulesRoot: 'src/constants',
+  //   },
+  //   plugins: [dts()],
+  //   // 在 external 配置中移除 Redux 相关依赖
+  //   external: [
+  //     'react',
+  //     'react-dom',
+  //     '@mui/material',
+  //     '@mui/icons-material',
+  //     '@emotion/react',
+  //     '@emotion/styled',
+  //     'zustand',
+  //     'immer',
+  //     'dayjs',
+  //     'i18next',
+  //     'react-i18next',
+  //     'js-cookie',
+  //     'lucide-react',
+  //     /^@components\//,
+  //     /^@constants\//,
+  //     /^@icons\//,
+  //   ],
+  // },
 ];
