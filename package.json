@@ -18,7 +18,8 @@
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test",
     "verdaccio:start": "bash scripts/deploy-verdaccio.sh",
-    "verdaccio:stop": "docker-compose down",
+    "verdaccio:stop": "docker compose down",
+    "verdaccio:local": "bash scripts/local-verdaccio.sh",
     "dev:ui": "lerna run storybook --scope=@mystics/ui",
     "preinstall": "npx only-allow pnpm"
   },

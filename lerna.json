@@ -14,7 +14,7 @@
     "publish": {
       "conventionalCommits": true,
       "message": "chore(release): publish",
-      "registry": "http://192.168.1.100:4873",
+      "registry": "http://localhost:4873",
       "access": "public"
     },
     "version": {

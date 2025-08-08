@@ -10,9 +10,9 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# 检查 Docker Compose 是否安装
-if ! command -v docker-compose &> /dev/null; then
-    echo "❌ Docker Compose 未安装，请先安装 Docker Compose"
+# 检查 Docker Compose 是否可用
+if ! docker compose version &> /dev/null; then
+    echo "❌ Docker Compose 不可用，请确保 Docker Desktop 已安装并运行"
     exit 1
 fi
 
@@ -22,7 +22,7 @@ mkdir -p plugins
 
 # 启动 Verdaccio 服务
 echo "📦 启动 Verdaccio 容器..."
-docker-compose up -d
+docker compose up -d
 
 # 等待服务启动
 echo "⏳ 等待 Verdaccio 服务启动..."
@@ -40,6 +40,6 @@ if curl -f http://localhost:4873 > /dev/null 2>&1; then
     echo "   3. 发布包: npm publish --registry http://localhost:4873"
 else
     echo "❌ Verdaccio 服务启动失败"
-    docker-compose logs verdaccio
+    docker compose logs verdaccio
     exit 1
 fi
