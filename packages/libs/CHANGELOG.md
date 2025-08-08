@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com-afan/a-fan-l/mystics/compare/@mystics/libs@1.2.0...@mystics/libs@1.1.2) (2025-08-08)
+
+
+### Bug Fixes
+
+* libs ([ed6f9f9](https://github.com-afan/a-fan-l/mystics/commit/ed6f9f945aba33b1a05d3424787d86e83c315a5f))
+
+
+
+
+
 # 1.2.0 (2025-08-08)
 
 
