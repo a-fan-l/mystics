@@ -1,6 +1,6 @@
 {
   "name": "@mystics/hooks",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "mystics hooks",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mystics/libs": "^1.0.1",
+    "@mystics/libs": "^1.0.2",
     "immer": "^10.1.1",
     "microbundle": "^0.15.1",
     "typescript": "^5.8.3",
