@@ -1,0 +1,33 @@
+# Mystics 团队私有 NPM 注册表配置
+# 请将 YOUR-SERVER-IP 替换为实际的服务器IP地址
+
+# 全局注册表配置
+registry=http://YOUR-SERVER-IP:4873
+
+# 作用域包配置
+@mystics:registry=http://YOUR-SERVER-IP:4873
+@lf:registry=http://YOUR-SERVER-IP:4873
+
+# 公共包回退配置
+@babel:registry=https://registry.npmjs.org/
+@types:registry=https://registry.npmjs.org/
+@testing-library:registry=https://registry.npmjs.org/
+
+# 其他配置
+save-prefix=^
+save-exact=false
+package-lock=true
+engine-strict=true
+
+# 发布配置
+access=public
+tag-version-prefix=v
+
+# 缓存配置
+cache-min=86400
+
+# 网络配置
+fetch-retries=3
+fetch-retry-factor=10
+fetch-retry-mintimeout=10000
+fetch-retry-maxtimeout=60000

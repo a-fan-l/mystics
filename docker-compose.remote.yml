@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  verdaccio:
+    image: verdaccio/verdaccio:5
+    container_name: mystics-registry-remote
+    restart: unless-stopped
+    ports:
+      - "4873:4873"
+    environment:
+      - VERDACCIO_USER_UID=10001
+      - VERDACCIO_USER_GID=65533
+      - NODE_ENV=production
+    volumes:
+      - "./verdaccio-config.yaml:/verdaccio/conf/config.yaml"
+      - "verdaccio_storage:/verdaccio/storage"
+      - "verdaccio_logs:/verdaccio/logs"
+    networks:
+      - verdaccio
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4873/-/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  verdaccio_storage:
+    driver: local
+  verdaccio_logs:
+    driver: local
+
+networks:
+  verdaccio:
+    driver: bridge
