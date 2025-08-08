@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/loader-utils": "^2.0.0",
     "@types/webpack": "^5.28.0",
