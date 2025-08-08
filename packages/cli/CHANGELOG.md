@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com-afan/a-fan-l/mystics/compare/@mystics/cli@1.2.2...@mystics/cli@1.2.2) (2025-08-08)
+
+
+### Bug Fixes
+
+* cli ([023a160](https://github.com-afan/a-fan-l/mystics/commit/023a160e92eb8356c7cbc9b142baa8d4837acf17))
+
+
+
+
+
 ## [1.2.2](https://github.com-afan/a-fan-l/mystics/compare/@mystics/cli@1.2.0...@mystics/cli@1.2.2) (2025-08-08)
 
 
