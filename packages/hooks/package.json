@@ -1,6 +1,6 @@
 {
   "name": "@mystics/hooks",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "mystics hooks",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
