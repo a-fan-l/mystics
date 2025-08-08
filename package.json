@@ -12,7 +12,7 @@
     "clean": "lerna run clean",
     "storybook": "lerna run storybook --scope=@mystics/ui",
     "build-storybook": "lerna run build-storybook --scope=@mystics/ui",
-    "version": "lerna version",
+    "version:bump": "lerna version",
     "publish": "bash scripts/publish.sh",
     "publish:dry": "bash scripts/publish.sh --dry-run",
     "publish:local": "bash scripts/publish.sh --registry http://localhost:4873",
