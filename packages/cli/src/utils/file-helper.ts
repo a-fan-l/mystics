@@ -5,6 +5,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+console.log('New feature in D');
+
 /**
  * 检查文件是否存在
  */
@@ -59,6 +61,20 @@ export const writeJsonFile = (filePath: string, data: any, indent: number = 2): 
     const dir = path.dirname(filePath);
     ensureDir(dir);
     fs.writeFileSync(filePath, JSON.stringify(data, null, indent), 'utf8');
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+/**
+ * 复制文件
+ */
+export const copyFile = (srcPath: string, destPath: string): boolean => {
+  try {
+    const dir = path.dirname(destPath);
+    ensureDir(dir);
+    fs.copyFileSync(srcPath, destPath);
     return true;
   } catch {
     return false;
