@@ -1,6 +1,6 @@
 {
   "name": "@mystics/cli",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "description": "CLI tools for type generation and CSS transform conversion",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -50,5 +50,5 @@
     "esbuild": "^0.19.0",
     "typescript": "^5.0.0"
   },
-  "gitHead": "9e2317a44e8751f535044a214902f3f30f28c17f"
+  "gitHead": "1cdb656a881a2912bde650168d3d9b4473843e0d"
 }
