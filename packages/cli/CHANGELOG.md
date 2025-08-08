@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com-afan/a-fan-l/mystics/compare/@mystics/cli@1.2.0...@mystics/cli@1.2.1) (2025-08-08)
+
+
+### Bug Fixes
+
+* 修复Lerna发布冲突和许可证警告 ([51da8c7](https://github.com-afan/a-fan-l/mystics/commit/51da8c740fb2ce9b06bd56b726edd03a53daadcc))
+
+
+
+
+
 # 1.2.0 (2025-08-08)
 
 

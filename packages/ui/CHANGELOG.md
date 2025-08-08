@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.1.0 (2025-08-08)
+
+
+### Bug Fixes
+
+* 修复Lerna发布冲突和许可证警告 ([51da8c7](https://github.com/a-fan-l/mystics/commit/51da8c740fb2ce9b06bd56b726edd03a53daadcc))
+* version ([be011f4](https://github.com/a-fan-l/mystics/commit/be011f4906c4f0d8e12ff3b33e3d1b9f1e1dd9e4))
+
+
+### Features
+
+* 简化发布策略 ([72766d4](https://github.com/a-fan-l/mystics/commit/72766d4c09e71f7552d1f90cc67a297d9e256b2b))
+* 添加新的 utils 工具函数 ([66d39d9](https://github.com/a-fan-l/mystics/commit/66d39d93cfcff421319a7b523f0becb4dd2a5180))
+
+
+
+## 1.0.4 (2025-08-08)
+
+
+### Bug Fixes
+
+* bug ([2b1d33c](https://github.com/a-fan-l/mystics/commit/2b1d33c58b52054fc4a60cc13bf15ff3d904ca23))
+* bug ([88bfa17](https://github.com/a-fan-l/mystics/commit/88bfa176db4424afc79a8a5f2106af67192752b6))
+* Improve the private storage function ([815825c](https://github.com/a-fan-l/mystics/commit/815825ce3b2f19f92dc9221cf76c5db851b57a3c))
+* init project, including cli, ui, hooks, libs ([5dfe699](https://github.com/a-fan-l/mystics/commit/5dfe699b143c3d0776624cef7df354e917376096))
+* ui ([c7f7315](https://github.com/a-fan-l/mystics/commit/c7f7315807bffdb8d7bcbab526bc1d2c296350fe))
+* version ([1912ebf](https://github.com/a-fan-l/mystics/commit/1912ebf5868f4dfdf91e17eb4f2f97dd52fcca29))
+
+
+### Features
+
+* 简化 lerna 多环境发布配置 ([616d86a](https://github.com/a-fan-l/mystics/commit/616d86ae53d649a9bdc9840f838f11396a88098b))
+
+
+
+
+
 # 1.2.0 (2025-08-08)
 
 

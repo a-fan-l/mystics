@@ -1,0 +1,22 @@
+79 error Error: Command failed with exit code 1: pnpm install --lockfile-only --ignore-scripts
+79 error Scope: all 5 workspace projects
+79 error  WARN  `node_modules` is present. Lockfile only installation will make it out-of-date
+79 error Progress: resolved 1, reused 0, downloaded 0, added 0
+79 error Progress: resolved 10, reused 0, downloaded 0, added 0
+79 error Progress: resolved 22, reused 0, downloaded 0, added 0
+79 error Progress: resolved 26, reused 0, downloaded 0, added 0
+79 error packages/ui                              |  WARN  deprecated @storybook/testing-library@0.2.2
+79 error Progress: resolved 36, reused 0, downloaded 0, added 0
+79 error /Users/abcdl/Desktop/yd-class/interview/mystics/packages/ui:
+79 error  ERR_PNPM_NO_MATCHING_VERSION  No matching version found for @mystics/libs@1.1.0 while fetching it from http://localhost:4873/
+79 error
+79 error This error happened while installing a direct dependency of /Users/abcdl/Desktop/yd-class/interview/mystics/packages/ui
+79 error
+79 error The latest release of @mystics/libs is "1.0.0".
+79 error
+79 error If you need the full list of all 1 published versions run "$ pnpm view @mystics/libs versions".
+79 error     at makeError (/Users/abcdl/Desktop/yd-class/interview/mystics/node_modules/.pnpm/execa@5.0.0/node_modules/execa/lib/error.js:59:11)
+79 error     at handlePromise (/Users/abcdl/Desktop/yd-class/interview/mystics/node_modules/.pnpm/execa@5.0.0/node_modules/execa/index.js:114:26)
+79 error     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+79 error     at async VersionCommand.updatePackageVersions (/Users/abcdl/Desktop/yd-class/interview/mystics/node_modules/.pnpm/lerna@8.2.2_@swc+core@1.11.24_babel-plugin-macros@3.1.0_encoding@0.1.13/node_modules/lerna/dist/index.js:9871:11)
+79 error     at async Promise.all (index 0)
