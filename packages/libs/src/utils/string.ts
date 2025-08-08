@@ -49,4 +49,38 @@ export const randomString = (length: number = 8): string => {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return result;
-};// 新增工具函数
+};
+
+/**
+ * 将字符串转换为 PascalCase（帕斯卡命名）
+ */
+export const pascalCase = (str: string): string => {
+  return str
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word) => word.toUpperCase())
+    .replace(/\s+/g, '');
+};
+
+/**
+ * 将字符串转换为 snake_case（蛇形命名）
+ */
+export const snakeCase = (str: string): string => {
+  return str
+    .replace(/([a-z])([A-Z])/g, '$1_$2')
+    .replace(/[\s-]+/g, '_')
+    .toLowerCase();
+};
+
+/**
+ * 检查字符串是否为回文
+ */
+export const isPalindrome = (str: string): boolean => {
+  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return cleaned === cleaned.split('').reverse().join('');
+};
+
+/**
+ * 计算字符串中字符出现次数
+ */
+export const charCount = (str: string, char: string): number => {
+  return str.split(char).length - 1;
+};

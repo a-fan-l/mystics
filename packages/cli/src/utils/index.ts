@@ -4,3 +4,4 @@
 
 export * from './api-generator';
 export * from './css-transformer';
+export * from './file-helper';
