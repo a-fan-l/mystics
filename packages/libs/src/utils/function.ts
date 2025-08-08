@@ -29,7 +29,7 @@ export function debounce<T extends (...args: any[]) => any>(
     wait: number
   ): (...args: Parameters<T>) => void {
     let inThrottle: boolean;
-  
+    console.log('throttle');
     return (...args: Parameters<T>) => {
       if (!inThrottle) {
         func(...args);
