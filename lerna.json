@@ -26,7 +26,8 @@
       ],
       "conventionalCommits": true,
       "push": false,
-      "exact": true
+      "exact": true,
+      "ignoreChanges": ["**/*.md", "**/*.test.*", "**/test/**"]
     }
   }
 }

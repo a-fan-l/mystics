@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mystics/libs": "^1.1.0",
     "immer": "^10.1.1",
     "microbundle": "^0.15.1",
     "typescript": "^5.8.3",
