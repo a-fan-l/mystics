@@ -22,6 +22,8 @@ show_help() {
     echo "  -r, --registry URL  指定 npm 注册表 URL (默认: http://localhost:4873)"
     echo "  -d, --dry-run       预演模式，不实际发布"
     echo "  -v, --verbose       详细输出"
+    echo "  --skip-build        跳过构建步骤"
+    echo "  --skip-clean        跳过清理步骤"
     echo ""
     echo "示例:"
     echo "  $0                                    # 发布到本地注册表"
@@ -33,6 +35,8 @@ show_help() {
 REGISTRY="http://localhost:4873"
 DRY_RUN=false
 VERBOSE=false
+SKIP_BUILD=false
+SKIP_CLEAN=false
 
 # 解析命令行参数
 while [[ $# -gt 0 ]]; do
@@ -51,6 +55,14 @@ while [[ $# -gt 0 ]]; do
             ;;
         -v|--verbose)
             VERBOSE=true
+            shift
+            ;;
+        --skip-build)
+            SKIP_BUILD=true
+            shift
+            ;;
+        --skip-clean)
+            SKIP_CLEAN=true
             shift
             ;;
         *)
@@ -80,16 +92,24 @@ if ! command -v lerna &> /dev/null; then
 fi
 
 # 清理之前的构建
-echo -e "${BLUE}🧹 清理之前的构建...${NC}"
-pnpm run clean
+if [ "$SKIP_CLEAN" = false ]; then
+    echo -e "${BLUE}🧹 清理之前的构建...${NC}"
+    pnpm run clean
+else
+    echo -e "${YELLOW}⏭️  跳过清理步骤${NC}"
+fi
 
 # 安装依赖
 echo -e "${BLUE}📦 安装依赖...${NC}"
 pnpm install
 
 # 构建所有包
-echo -e "${BLUE}🔨 构建所有包...${NC}"
-pnpm run build
+if [ "$SKIP_BUILD" = false ]; then
+    echo -e "${BLUE}🔨 构建所有包...${NC}"
+    pnpm run build
+else
+    echo -e "${YELLOW}⏭️  跳过构建步骤${NC}"
+fi
 
 # 检查构建结果
 echo -e "${BLUE}🔍 检查构建结果...${NC}"

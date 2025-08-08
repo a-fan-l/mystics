@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "1.0.4",
+  "packages": ["packages/*", "apps/*"],
+  "npmClient": "pnpm",
+  "ignoreChanges": ["**/node_modules/**", "**/__snapshots__/**"],
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "message": "chore(release): publish to remote registry",
+      "registry": "http://192.168.1.100:4873",
+      "access": "public"
+    },
+    "version": {
+      "allowBranch": ["main", "master"],
+      "conventionalCommits": true
+    }
+  }
+}

@@ -1,27 +1,18 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "version": "1.0.4",
-  "packages": [
-    "packages/*",
-    "apps/*"
-  ],
+  "packages": ["packages/*", "apps/*"],
   "npmClient": "pnpm",
-  "ignoreChanges": [
-    "**/node_modules/**",
-    "**/__snapshots__/**"
-  ],
+  "ignoreChanges": ["**/node_modules/**", "**/__snapshots__/**"],
   "command": {
     "publish": {
       "conventionalCommits": true,
-      "message": "chore(release): publish",
+      "message": "chore(release): publish to local registry",
       "registry": "http://localhost:4873",
       "access": "public"
     },
     "version": {
-      "allowBranch": [
-        "main",
-        "master"
-      ],
+      "allowBranch": ["main", "master"],
       "conventionalCommits": true
     }
   }
