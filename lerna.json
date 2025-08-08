@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "version": "1.1.0",
+  "version": "independent",
   "packages": [
     "packages/*",
     "apps/*"
@@ -12,18 +12,21 @@
   ],
   "command": {
     "publish": {
-      "bump": "patch",
       "conventionalCommits": true,
       "message": "chore(release): publish",
       "registry": "http://localhost:4873",
-      "access": "public"
+      "access": "public",
+      "ignoreChanges": ["**/*.md", "**/*.test.*", "**/test/**"],
+      "forcePublish": false
     },
     "version": {
       "allowBranch": [
         "main",
         "master"
       ],
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "push": false,
+      "exact": true
     }
   }
 }
