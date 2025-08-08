@@ -49,4 +49,4 @@ export const randomString = (length: number = 8): string => {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return result;
-};
+};// 新增工具函数
