@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
  */
 export const formatDate = (date: Date | string | number, format: string = 'YYYY-MM-DD'): string => {
   return dayjs(date).format(format);
+  console.log('formatDate');
 };
 
 /**
