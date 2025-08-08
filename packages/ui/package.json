@@ -1,6 +1,6 @@
 {
   "name": "@mystics/ui",
-  "version": "1.2.0",
+  "version": "1.1.1",
   "description": "mystics ui",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -40,8 +40,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@mystics/hooks": "1.2.0",
-    "@mystics/libs": "1.2.0",
+    "@mystics/hooks": "1.1.0",
+    "@mystics/libs": "1.1.0",
     "@radix-ui/themes": "^3.2.1",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
