@@ -12,6 +12,7 @@
   ],
   "command": {
     "publish": {
+      "bump": "patch",
       "conventionalCommits": true,
       "message": "chore(release): publish",
       "registry": "http://localhost:4873",
