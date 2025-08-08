@@ -3,6 +3,8 @@
  * 提供 API 类型生成和 CSS Transform 转换功能
  */
 
+console.log('New CLI feature added');
+
 export * from './utils';
 export * from './types';
 
