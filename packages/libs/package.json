@@ -1,6 +1,6 @@
 {
   "name": "@mystics/libs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mystics libs",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -13,15 +13,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/loader-utils": "^2.0.0",
+    "@types/webpack": "^5.28.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "microbundle": "^0.15.1",
     "postcss": "^8.5.3",
     "tailwind-merge": "^3.0.2",
-    "webpack": "^5.0.0",
     "typescript": "^5.0.0",
-    "@types/webpack": "^5.28.0",
-    "@types/loader-utils": "^2.0.0"
+    "webpack": "^5.0.0"
   },
   "devDependencies": {
     "typescript": "^5.8.3"

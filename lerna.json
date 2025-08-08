@@ -1,9 +1,15 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "version": "0.0.0",
-  "packages": ["packages/*", "apps/*"],
+  "version": "1.0.1",
+  "packages": [
+    "packages/*",
+    "apps/*"
+  ],
   "npmClient": "pnpm",
-  "ignoreChanges": ["**/node_modules/**", "**/__snapshots__/**"],
+  "ignoreChanges": [
+    "**/node_modules/**",
+    "**/__snapshots__/**"
+  ],
   "command": {
     "publish": {
       "conventionalCommits": true,
@@ -12,7 +18,10 @@
       "access": "public"
     },
     "version": {
-      "allowBranch": ["main", "master"],
+      "allowBranch": [
+        "main",
+        "master"
+      ],
       "conventionalCommits": true
     }
   }
